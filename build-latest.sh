@@ -12,6 +12,6 @@ docker run --privileged --rm tonistiigi/binfmt --install all
 docker pull debian:11
 
 # Build dev image with just binaries
-docker buildx build --pull --rm --platform linux/arm64,linux/amd64 -t kitobor/ki-gpt:latest -f Dockerfile.dev "." --push
+docker buildx build --pull --rm --platform linux/arm64,linux/amd64 -t kitobor/ki-gpt:latest -f Dockerfile "." --push
 
 # docker buildx build --pull --rm -f Dockerfile.export --platform linux/arm64,linux/amd64 -t kitobor/ki-gpt:latest --output out .
