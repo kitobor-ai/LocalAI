@@ -15,6 +15,7 @@ https://huggingface.co/gpt2 (1.5 billion parameters.)
 https://huggingface.co/EleutherAI/gpt-neo-2.7B (2.7 billion parameters)
 https://huggingface.co/ctrl
 https://huggingface.co/transformerxl-wt103 (sequence-to-sequence)
+https://huggingface.co/t5-base (20 million parameters)
 ```
 
 ## Models GPT3 Todo
