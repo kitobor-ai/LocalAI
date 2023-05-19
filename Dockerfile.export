@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y cmake libgomp1 libopenblas-dev libopenb
 RUN ln -s /usr/include/opencv4/opencv2/ /usr/include/opencv2
 COPY . .
 RUN make build
+# RUN make prepare-sources
 
 RUN mv /build/local-ai /build/local-ai-${TARGETARCH}
 
