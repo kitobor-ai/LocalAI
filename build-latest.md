@@ -9,6 +9,14 @@ https://huggingface.co/ggerganov/
 https://huggingface.co/imxcstar/
 ```
 
+## Models Todo
+```
+https://huggingface.co/gpt2
+https://huggingface.co/EleutherAI/gpt-neo-2.7B
+https://huggingface.co/ctrl
+https://huggingface.co/transformerxl-wt103
+```
+
 ## Curl
 
 ```
