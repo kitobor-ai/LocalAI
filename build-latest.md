@@ -11,10 +11,19 @@ https://huggingface.co/imxcstar/
 
 ## Models Todo
 ```
-https://huggingface.co/gpt2
-https://huggingface.co/EleutherAI/gpt-neo-2.7B
+https://huggingface.co/gpt2 (1.5 billion parameters.)
+https://huggingface.co/EleutherAI/gpt-neo-2.7B (2.7 billion parameters)
 https://huggingface.co/ctrl
-https://huggingface.co/transformerxl-wt103
+https://huggingface.co/transformerxl-wt103 (sequence-to-sequence)
+```
+
+## Models GPT3 Todo
+```
+GPT-3: https://huggingface.co/gpt3
+GPT-3 small: https://huggingface.co/gpt3-small
+GPT-3 medium: https://huggingface.co/gpt3-medium
+GPT-3 large: https://huggingface.co/gpt3-large
+GPT-3 XL: https://huggingface.co/gpt3-xl
 ```
 
 ## Curl
