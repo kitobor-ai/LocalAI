@@ -3,9 +3,9 @@ GOTEST=$(GOCMD) test
 GOVET=$(GOCMD) vet
 BINARY_NAME=local-ai
 
-GOLLAMA_VERSION?=b7bbefbe0b84262e003387a605842bdd0d099300
+GOLLAMA_VERSION?=3ee537e8cb52cf8334832a07fe753c756130e949
 GPT4ALL_REPO?=https://github.com/nomic-ai/gpt4all
-GPT4ALL_VERSION?=213e033540fa3b68202bb12cf7f0134cfe6638aa
+GPT4ALL_VERSION?=914519e772fd78c15691dcd0b8bac60d6af514ec
 GOGPT2_VERSION?=7bff56f0224502c1c9ed6258d2a17e8084628827
 RWKV_REPO?=https://github.com/donomii/go-rwkv.cpp
 RWKV_VERSION?=07166da10cb2a9e8854395a4f210464dcea76e47
@@ -65,6 +65,7 @@ gpt4all:
 	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/json_/json_gptj_/g' {} +
 	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/void replace/void json_gptj_replace/g' {} +
 	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/::replace/::json_gptj_replace/g' {} +
+	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/regex_escape/gpt4allregex_escape/g' {} +
 	mv ./gpt4all/gpt4all-backend/llama.cpp/llama_util.h ./gpt4all/gpt4all-backend/llama.cpp/gptjllama_util.h
 
 ## BERT embeddings
