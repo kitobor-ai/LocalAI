@@ -37,14 +37,14 @@ or
 wget <https://gpt4all.io/models/ggml-gpt4all-j.bin> -O ggml-gpt4all-j.bin
 
 curl http://localhost:8080/v1/completions -H "Content-Type: application/json" -d '{
-     "model": "ggml-gpt4all-j.bin",
+     "model": "ggml-gpt4all-l13b-snoozy.bin",
      "prompt": "A long time ago in a galaxy far, far away",
      "temperature": 0.7
    }'
 
 
 curl http://localhost:8080/v1/chat/completions -H "Content-Type: application/json" -d '{
-     "model": "ggml-gpt4all-j.bin",
+     "model": "ggml-gpt4all-l13b-snoozy.bin",
      "messages": [{"role": "user", "content": "How are you?"}],
      "temperature": 0.9 
    }'
