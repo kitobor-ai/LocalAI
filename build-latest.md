@@ -50,6 +50,13 @@ curl http://localhost:8080/v1/chat/completions -H "Content-Type: application/jso
    }'
 ```
 
+## Local
+
+```
+
+./local --models-path ../models --image-path ../images --context-size 700 --threads 4 --upload-limit 40
+```
+
 ## Docker
 
 ```
