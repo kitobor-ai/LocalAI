@@ -39,6 +39,7 @@ LocalAI uses C++ bindings for optimizing speed. It is based on [llama.cpp](https
 
 ## News
 
+- 21-05-2023: __v1.14.0__ released. Minor updates to the `/models/apply` endpoint, `llama.cpp` backend updated including https://github.com/ggerganov/llama.cpp/pull/1508 which breaks compatibility with older models. `gpt4all` is still compatible with the old format. 
 - 19-05-2023: __v1.13.0__ released! 🔥🔥 updates to the `gpt4all` and `llama` backend, consolidated CUDA support ( https://github.com/go-skynet/LocalAI/pull/310 thanks to @bubthegreat and @Thireus ), preliminar support for [installing models via API](https://github.com/go-skynet/LocalAI#advanced-prepare-models-using-the-api).
 - 17-05-2023:  __v1.12.0__ released! 🔥🔥 Minor fixes, plus CUDA (https://github.com/go-skynet/LocalAI/pull/258) support for `llama.cpp`-compatible models and image generation (https://github.com/go-skynet/LocalAI/pull/272).
 - 16-05-2023: 🔥🔥🔥 Experimental support for CUDA (https://github.com/go-skynet/LocalAI/pull/258) in the `llama.cpp` backend and Stable diffusion CPU image generation (https://github.com/go-skynet/LocalAI/pull/272) in `master`.
@@ -868,18 +869,19 @@ curl http://localhost:8080/models/apply -H "Content-Type: application/json" -d '
         {
             "uri": "<additional_file>",
             "sha256": "<additional_file_hash>",
-            "name": "<additional_file_name>"
-        }
+            "filename": "<additional_file_name>"
+        },
+      "overrides": { "backend": "...", "f16": true }
      ]
    }
 ```
 
-An optional, list of additional files can be specified to be downloaded. The `name` allows to override the model name.
+An optional, list of additional files can be specified to be downloaded within `files`. The `name` allows to override the model name. Finally it is possible to override the model config file with `override`.
 
 Returns an `uuid` and an `url` to follow up the state of the process:
 
 ```json
-{ "uid":"251475c9-f666-11ed-95e0-9a8a4480ac58", "status":"http://localhost:8080/models/jobs/251475c9-f666-11ed-95e0-9a8a4480ac58"}
+{ "uuid":"251475c9-f666-11ed-95e0-9a8a4480ac58", "status":"http://localhost:8080/models/jobs/251475c9-f666-11ed-95e0-9a8a4480ac58"}
 ```
 
 To see a collection example of curated models definition files, see the [model-gallery](https://github.com/go-skynet/model-gallery).
