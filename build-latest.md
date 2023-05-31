@@ -18,35 +18,47 @@ https://huggingface.co/transformerxl-wt103 (sequence-to-sequence)
 https://huggingface.co/t5-base (20 million parameters)
 ```
 
-## Models GPT3 Todo
-```
-GPT-3: https://huggingface.co/gpt3
-GPT-3 small: https://huggingface.co/gpt3-small
-GPT-3 medium: https://huggingface.co/gpt3-medium
-GPT-3 large: https://huggingface.co/gpt3-large
-GPT-3 XL: https://huggingface.co/gpt3-xl
-```
-
-## Curl
+## Build
 
 ```
+# install build dependencies
+brew install cmake
+brew install go
+
+# clone the repo
+git clone https://github.com/go-skynet/LocalAI.git
+
+cd LocalAI
+
+# build the binary
+make build
+
+# image generation
+# make GO_TAGS=stablediffusion rebuild
+
+# Download gpt4all-j to models/
+wget https://gpt4all.io/models/ggml-gpt4all-j.bin -O models/ggml-gpt4all-j
+
+# Use a template from the examples
+cp -rf prompt-templates/ggml-gpt4all-j.tmpl models/
+
+# Run LocalAI
+./local-ai --models-path ./models/ --debug
+
+# Now API is accessible at localhost:8080
 curl http://localhost:8080/v1/models
 
-curl https://gpt4all.io/models/ggml-gpt4all-j.bin -o ggml-gpt4all-j.bin
-or
-wget <https://gpt4all.io/models/ggml-gpt4all-j.bin> -O ggml-gpt4all-j.bin
-
-curl http://localhost:8080/v1/completions -H "Content-Type: application/json" -d '{
-     "model": "ggml-gpt4all-l13b-snoozy.bin",
-     "prompt": "A long time ago in a galaxy far, far away",
-     "temperature": 0.7
+curl http://localhost:8080/v1/chat/completions -H "Content-Type: application/json" -d '{
+     "model": "ggml-gpt4all-j",
+     "messages": [{"role": "user", "content": "How are you?"}],
+     "temperature": 0.9 
    }'
 
 
-curl http://localhost:8080/v1/chat/completions -H "Content-Type: application/json" -d '{
-     "model": "ggml-gpt4all-l13b-snoozy.bin",
-     "messages": [{"role": "user", "content": "How are you?"}],
-     "temperature": 0.9 
+curl http://localhost:8080/v1/completions -H "Content-Type: application/json" -d '{
+     "model": "ggml-gpt4all-j",
+     "prompt": "A long time ago in a galaxy far, far away",
+     "temperature": 0.7
    }'
 ```
 
@@ -85,26 +97,27 @@ DEBUG=false
 ## BUILD_TYPE
 
 ```
-Default
-BUILD_TYPE=generic
 
+Software acceleration.
 Requirements: OpenBLAS (Windows x86/x86_64)
 BUILD_TYPE=openblas
 
+---
+
+Nvidia Acceleration.
 Requirement: Nvidia CUDA toolkit
 BUILD_TYPE=cublas
+CUDA_LIBPATH=
+
+---
+
+AMD/Intel GPU acceleration.
+Requirement: OpenCL, CLBlast
+make BUILD_TYPE=clblas build
+CLBLAST_DIR=
+
+---
 
 Requirements: OpenCV, Gomp (Text to Image)
 GO_TAGS=stablediffusion
-```
-
-## Info
-
-```
-lscpu
-sudo chown -R $(whoami) ~/.docker
-/var/lib/docker
-
-docker images
-docker image rm REPOSITORY
 ```
