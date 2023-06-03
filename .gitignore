@@ -24,3 +24,7 @@ release/
 
 # just in case
 .DS_Store
+.idea
+
+# Generated during build
+backend-assets/

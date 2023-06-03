@@ -22,6 +22,8 @@ github.com/donomii/go-rwkv.cpp v0.0.0-20230529074347-ccb05c3e1c6e h1:YbcLoxAwS0r
 github.com/donomii/go-rwkv.cpp v0.0.0-20230529074347-ccb05c3e1c6e/go.mod h1:gWy7FIWioqYmYxkaoFyBnaKApeZVrUkHhv9EV9pz4dM=
 github.com/donomii/go-rwkv.cpp v0.0.0-20230531084548-c43cdf5fc5bf h1:upCz8WYdzMeJg0qywUaVaGndY+niuicj5j6V4pvhNS4=
 github.com/donomii/go-rwkv.cpp v0.0.0-20230531084548-c43cdf5fc5bf/go.mod h1:gWy7FIWioqYmYxkaoFyBnaKApeZVrUkHhv9EV9pz4dM=
+github.com/donomii/go-rwkv.cpp v0.0.0-20230601111443-3b28b09469fc h1:RCGGh/zw+K09sjCIYHUV7lFenxONml+LS02RdN+AkwI=
+github.com/donomii/go-rwkv.cpp v0.0.0-20230601111443-3b28b09469fc/go.mod h1:gWy7FIWioqYmYxkaoFyBnaKApeZVrUkHhv9EV9pz4dM=
 github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230520182345-041be06d5881 h1:dafqVivljYk51VLFnnpTXJnfWDe637EobWZ1l8PyEf8=
 github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230520182345-041be06d5881/go.mod h1:QIjZ9OktHFG7p+/m3sMvrAJKKdWrr1fZIK0rM6HZlyo=
 github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230523110439-77eab3fbfe5e h1:4PMorQuoUGAXmIzCtnNOHaasyLokXdgd8jUWwsraFTo=
@@ -34,6 +36,10 @@ github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230528233858-d7c936b44a80 
 github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230528233858-d7c936b44a80/go.mod h1:QIjZ9OktHFG7p+/m3sMvrAJKKdWrr1fZIK0rM6HZlyo=
 github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230531071314-ce6f7470649f h1:oGTI2SlcA7oGPFsmkS1m8psq3uKNnhhJ/MZ2ZWVZDe0=
 github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230531071314-ce6f7470649f/go.mod h1:QIjZ9OktHFG7p+/m3sMvrAJKKdWrr1fZIK0rM6HZlyo=
+github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230601065548-3f7436e8a096 h1:TD7v8FnwWCWlOsrkpnumsbxsflyhTI3rSm2HInqqSAI=
+github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230601065548-3f7436e8a096/go.mod h1:QIjZ9OktHFG7p+/m3sMvrAJKKdWrr1fZIK0rM6HZlyo=
+github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230601124500-5b9e59bc07dd h1:os3FeYEIB4j5m5QlbFC3HkVcaAmLxNXz48uIfQAexm0=
+github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230601124500-5b9e59bc07dd/go.mod h1:QIjZ9OktHFG7p+/m3sMvrAJKKdWrr1fZIK0rM6HZlyo=
 github.com/go-audio/audio v1.0.0 h1:zS9vebldgbQqktK4H0lUqWrG8P0NxCJVqcj7ZpNnwd4=
 github.com/go-audio/audio v1.0.0/go.mod h1:6uAu0+H2lHkwdGsAY+j2wHPNPpPoeg5AaEFh9FlA+Zs=
 github.com/go-audio/riff v1.0.0 h1:d8iCGbDvox9BfLagY94fBynxSPHO80LmZCaOsmKxokA=
@@ -84,6 +90,8 @@ github.com/go-skynet/go-llama.cpp v0.0.0-20230529221033-4afcaf28f36f h1:HmXiNF9S
 github.com/go-skynet/go-llama.cpp v0.0.0-20230529221033-4afcaf28f36f/go.mod h1:oA0r4BW8ndyjTMGi1tulsNd7sdg3Ql8MaVFuT1zF6ws=
 github.com/go-skynet/go-llama.cpp v0.0.0-20230530191504-62b6c079a47d h1:daPcVEptc/6arcS/QV4QDCdYiwMGCiiR5rnzUs63WK0=
 github.com/go-skynet/go-llama.cpp v0.0.0-20230530191504-62b6c079a47d/go.mod h1:oA0r4BW8ndyjTMGi1tulsNd7sdg3Ql8MaVFuT1zF6ws=
+github.com/go-skynet/go-llama.cpp v0.0.0-20230531065249-10caf37d8b73 h1:swwsrYpPYOsyGFrX/0nhaYa93aHH6I61HpSJpQkN1tY=
+github.com/go-skynet/go-llama.cpp v0.0.0-20230531065249-10caf37d8b73/go.mod h1:ddYIvPZyj3Vf4XkfZimVRRehZu2isd0JXfK3EemVQPk=
 github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 h1:tfuBGBXKqDEevZMzYi5KSi8KkcZtzBcTgAUUtapy0OI=
 github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572/go.mod h1:9Pwr4B2jHnOSGXyyzV8ROjYa2ojvAY6HCGYYfMoC3Ls=
 github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
@@ -147,6 +155,14 @@ github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230528235700-9eb81c
 github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230528235700-9eb81cb54922/go.mod h1:4T3CHXyrt+7FQHXaxULZfPjHbD8/99WuDDJa0YVZARI=
 github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230531011104-5f940208e4f5 h1:99cF+V5wk7IInDAEM9HAlSHdLf/xoJR529Wr8lAG5KQ=
 github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230531011104-5f940208e4f5/go.mod h1:4T3CHXyrt+7FQHXaxULZfPjHbD8/99WuDDJa0YVZARI=
+github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230601151908-5175db27813c h1:KXYqUH6bdYbxnF67l8wayctaCZ4BQJQOsUyNke7HC0A=
+github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230601151908-5175db27813c/go.mod h1:4T3CHXyrt+7FQHXaxULZfPjHbD8/99WuDDJa0YVZARI=
+github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230601213413-031d7149a7fd h1:VTPLKWrmiwYnSHfZh2KHqwSbMeM3D50J6VmDznyY3Ak=
+github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230601213413-031d7149a7fd/go.mod h1:4T3CHXyrt+7FQHXaxULZfPjHbD8/99WuDDJa0YVZARI=
+github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230602151000-be9f6ad54342 h1:Nca3BDITw9yrhMksPL5VKpj+nOUmDXTy7qB7tHJy0R8=
+github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230602151000-be9f6ad54342/go.mod h1:4T3CHXyrt+7FQHXaxULZfPjHbD8/99WuDDJa0YVZARI=
+github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230603001950-25ee51e2ca3a h1:ALsGoIFe2IZLMD+y0/ds7Spn8e9qiucQ9hod0zTRmfk=
+github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230603001950-25ee51e2ca3a/go.mod h1:4T3CHXyrt+7FQHXaxULZfPjHbD8/99WuDDJa0YVZARI=
 github.com/onsi/ginkgo/v2 v2.9.5 h1:+6Hr4uxzP4XIUyAkg61dWBw8lb/gc4/X5luuxN/EC+Q=
 github.com/onsi/ginkgo/v2 v2.9.5/go.mod h1:tvAoo1QUJwNEU2ITftXTpR7R1RbCzoZUOs3RonqW57k=
 github.com/onsi/ginkgo/v2 v2.9.7 h1:06xGQy5www2oN160RtEZoTvnP2sPhEfePYmCDc2szss=
@@ -188,8 +204,12 @@ github.com/swaggo/swag v1.16.1/go.mod h1:9/LMvHycG3NFHfR6LwvikHv5iFvmPADQ359cKik
 github.com/tinylib/msgp v1.1.6/go.mod h1:75BAfg2hauQhs3qedfdDZmWAPcFMAvJE5b9rGOMufyw=
 github.com/tinylib/msgp v1.1.8 h1:FCXC1xanKO4I8plpHGH2P7koL/RzZs12l/+r7vakfm0=
 github.com/tinylib/msgp v1.1.8/go.mod h1:qkpG+2ldGg4xRFmx+jfTvZPxfGFhi64BcnL9vkCm/Tw=
+github.com/tmc/langchaingo v0.0.0-20230530193922-fb062652f841 h1:IVlfKPZzq3W1G+CkhZgN5VjmHnAeB3YqEvxyNPPCZXY=
+github.com/tmc/langchaingo v0.0.0-20230530193922-fb062652f841/go.mod h1:6l1WoyqVDwkv7cFlY3gfcTv8yVowVyuutKv8PGlQCWI=
 github.com/urfave/cli/v2 v2.25.3 h1:VJkt6wvEBOoSjPFQvOkv6iWIrsJyCrKGtCtxXWwmGeY=
 github.com/urfave/cli/v2 v2.25.3/go.mod h1:GHupkWPMM0M/sj1a2b4wUrWBPzazNrIjouW6fmdJLxc=
+github.com/urfave/cli/v2 v2.25.5 h1:d0NIAyhh5shGscroL7ek/Ya9QYQE0KNabJgiUinIQkc=
+github.com/urfave/cli/v2 v2.25.5/go.mod h1:GHupkWPMM0M/sj1a2b4wUrWBPzazNrIjouW6fmdJLxc=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/valyala/fasthttp v1.47.0 h1:y7moDoxYzMooFpT5aHgNgVOQDrS3qlkfiP9mDtGGK9c=

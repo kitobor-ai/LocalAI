@@ -3,14 +3,14 @@ GOTEST=$(GOCMD) test
 GOVET=$(GOCMD) vet
 BINARY_NAME=local-ai
 
-GOLLAMA_VERSION?=62b6c079a47d6949c982ed8e684b94bdbf48b41c
+GOLLAMA_VERSION?=3f10005b70c657c317d2cae4c22a9bd295f54a3c
 GPT4ALL_REPO?=https://github.com/nomic-ai/gpt4all
-GPT4ALL_VERSION?=337c7fecacfa4ae6779046513ab090687a5b0ef6
-GOGGMLTRANSFORMERS_VERSION?=13ccc22621bb21afecd38675a2b043498e2e756c
-RWKV_REPO?=https://github.com/donomii/go-rwkv.cpp
-RWKV_VERSION?=ccb05c3e1c6efd098017d114dcb58ab3262b40b2
-WHISPER_CPP_VERSION?=d7c936b44a80b8070676093fc00622333ba09cd3
-BERT_VERSION?=771b4a08597224b21cff070950ef4f68690e14ad
+GPT4ALL_VERSION?=23391d44e0b99406906eabc4865ec12dd3c69bdc
+GOGGMLTRANSFORMERS_VERSION?=17b065584ef8f3280b6286235f0db95eec8a4b1c
+RWKV_REPO?=https://github.com/mudler/go-rwkv.cpp
+RWKV_VERSION?=f25c89f8e55a67d57c01661a16abeed1b1c25016
+WHISPER_CPP_VERSION?=5b9e59bc07dd76320354f2af6be29f16dbcb21e7
+BERT_VERSION?=0548994371f7081e45fcf8d472f3941a12f179aa
 BLOOMZ_VERSION?=1834e77b83faafe912ad4092ccf7f77937349e2f
 BUILD_TYPE?=
 CGO_LDFLAGS?=
@@ -63,22 +63,13 @@ gpt4all:
 	git clone --recurse-submodules $(GPT4ALL_REPO) gpt4all
 	cd gpt4all && git checkout -b build $(GPT4ALL_VERSION) && git submodule update --init --recursive --depth 1
 	# This is hackish, but needed as both go-llama and go-gpt4allj have their own version of ggml..
-	@find ./gpt4all -type f -name "*.c" -exec sed -i'' -e 's/ggml_/ggml_gptj_/g' {} +
-	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/ggml_/ggml_gptj_/g' {} +
-	@find ./gpt4all -type f -name "*.h" -exec sed -i'' -e 's/ggml_/ggml_gptj_/g' {} +
-	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/gpt_/gptj_/g' {} +
-	@find ./gpt4all -type f -name "*.h" -exec sed -i'' -e 's/gpt_/gptj_/g' {} +
-	@find ./gpt4all -type f -name "*.h" -exec sed -i'' -e 's/set_console_color/set_gptj_console_color/g' {} +
-	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/set_console_color/set_gptj_console_color/g' {} +
-	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/llama_/gptjllama_/g' {} +
-	@find ./gpt4all -type f -name "*.go" -exec sed -i'' -e 's/llama_/gptjllama_/g' {} +
-	@find ./gpt4all -type f -name "*.h" -exec sed -i'' -e 's/llama_/gptjllama_/g' {} +
-	@find ./gpt4all -type f -name "*.txt" -exec sed -i'' -e 's/llama_/gptjllama_/g' {} +
-	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/json_/json_gptj_/g' {} +
-	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/void replace/void json_gptj_replace/g' {} +
-	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/::replace/::json_gptj_replace/g' {} +
-	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/regex_escape/gpt4allregex_escape/g' {} +
-	mv ./gpt4all/gpt4all-backend/llama.cpp/llama_util.h ./gpt4all/gpt4all-backend/llama.cpp/gptjllama_util.h
+	@find ./gpt4all -type f -name "*.c" -exec sed -i'' -e 's/ggml_/ggml_gpt4all_/g' {} +
+	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/ggml_/ggml_gpt4all_/g' {} +
+	@find ./gpt4all -type f -name "*.h" -exec sed -i'' -e 's/ggml_/ggml_gpt4all_/g' {} +
+	@find ./gpt4all/gpt4all-bindings/golang -type f -name "*.cpp" -exec sed -i'' -e 's/load_model/load_gpt4all_model/g' {} +
+	@find ./gpt4all/gpt4all-bindings/golang -type f -name "*.go" -exec sed -i'' -e 's/load_model/load_gpt4all_model/g' {} +
+	@find ./gpt4all/gpt4all-bindings/golang -type f -name "*.h" -exec sed -i'' -e 's/load_model/load_gpt4all_model/g' {} +
+
 
 ## BERT embeddings
 go-bert:
@@ -105,7 +96,7 @@ go-rwkv:
 	@find ./go-rwkv -type f -name "*.h" -exec sed -i'' -e 's/ggml_/ggml_rwkv_/g' {} +
 
 go-rwkv/librwkv.a: go-rwkv
-	cd go-rwkv && cd rwkv.cpp &&	cmake . -DRWKV_BUILD_SHARED_LIBRARY=OFF &&	cmake --build . && 	cp librwkv.a .. && cp ggml/src/libggml.a ..
+	cd go-rwkv && cd rwkv.cpp &&	cmake . -DRWKV_BUILD_SHARED_LIBRARY=OFF &&	cmake --build . && 	cp librwkv.a ..
 
 ## bloomz
 bloomz:
@@ -123,6 +114,12 @@ bloomz/libbloomz.a: bloomz
 
 go-bert/libgobert.a: go-bert
 	$(MAKE) -C go-bert libgobert.a
+
+backend-assets/gpt4all: gpt4all/gpt4all-bindings/golang/libgpt4all.a
+	mkdir -p backend-assets/gpt4all
+	@cp gpt4all/gpt4all-bindings/golang/buildllm/*.so backend-assets/gpt4all/ || true
+	@cp gpt4all/gpt4all-bindings/golang/buildllm/*.dylib backend-assets/gpt4all/ || true
+	@cp gpt4all/gpt4all-bindings/golang/buildllm/*.dll backend-assets/gpt4all/ || true
 
 gpt4all/gpt4all-bindings/golang/libgpt4all.a: gpt4all
 	$(MAKE) -C gpt4all/gpt4all-bindings/golang/ libgpt4all.a
@@ -188,7 +185,7 @@ rebuild: ## Rebuilds the project
 	$(MAKE) -C bloomz clean
 	$(MAKE) build
 
-prepare: prepare-sources gpt4all/gpt4all-bindings/golang/libgpt4all.a $(OPTIONAL_TARGETS) go-llama/libbinding.a go-bert/libgobert.a go-ggml-transformers/libtransformers.a go-rwkv/librwkv.a whisper.cpp/libwhisper.a bloomz/libbloomz.a  ## Prepares for building
+prepare: prepare-sources backend-assets/gpt4all $(OPTIONAL_TARGETS) go-llama/libbinding.a go-bert/libgobert.a go-ggml-transformers/libtransformers.a go-rwkv/librwkv.a whisper.cpp/libwhisper.a bloomz/libbloomz.a  ## Prepares for building
 
 clean: ## Remove build related file
 	rm -fr ./go-llama
@@ -196,6 +193,7 @@ clean: ## Remove build related file
 	rm -rf ./go-gpt2
 	rm -rf ./go-stable-diffusion
 	rm -rf ./go-ggml-transformers
+	rm -rf ./backend-assets
 	rm -rf ./go-rwkv
 	rm -rf ./go-bert
 	rm -rf ./bloomz
@@ -220,7 +218,7 @@ generic-build: ## Build the project using generic
 
 ## Run
 run: prepare ## run local-ai
-	CGO_LDFLAGS="$(CGO_LDFLAGS)" C_INCLUDE_PATH=${C_INCLUDE_PATH} LIBRARY_PATH=${LIBRARY_PATH} $(GOCMD) run ./main.go
+	CGO_LDFLAGS="$(CGO_LDFLAGS)" C_INCLUDE_PATH=${C_INCLUDE_PATH} LIBRARY_PATH=${LIBRARY_PATH} $(GOCMD) run ./
 
 test-models/testmodel:
 	mkdir test-models
@@ -235,7 +233,7 @@ test-models/testmodel:
 
 test: prepare test-models/testmodel
 	cp tests/models_fixtures/* test-models
-	C_INCLUDE_PATH=${C_INCLUDE_PATH} LIBRARY_PATH=${LIBRARY_PATH} TEST_DIR=$(abspath ./)/test-dir/ FIXTURES=$(abspath ./)/tests/fixtures CONFIG_FILE=$(abspath ./)/test-models/config.yaml MODELS_PATH=$(abspath ./)/test-models $(GOCMD) run github.com/onsi/ginkgo/v2/ginkgo --flakeAttempts 5 -v -r ./api ./pkg
+	C_INCLUDE_PATH=${C_INCLUDE_PATH} LIBRARY_PATH=${LIBRARY_PATH} TEST_DIR=$(abspath ./)/test-dir/ FIXTURES=$(abspath ./)/tests/fixtures CONFIG_FILE=$(abspath ./)/test-models/config.yaml MODELS_PATH=$(abspath ./)/test-models $(GOCMD) run github.com/onsi/ginkgo/v2/ginkgo --flake-attempts 5 -v -r ./api ./pkg
 
 ## Help:
 help: ## Show this help.

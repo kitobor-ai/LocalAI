@@ -3,26 +3,27 @@ module github.com/go-skynet/LocalAI
 go 1.19
 
 require (
-	github.com/donomii/go-rwkv.cpp v0.0.0-20230531084548-c43cdf5fc5bf
-	github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230531071314-ce6f7470649f
+	github.com/donomii/go-rwkv.cpp v0.0.0-20230601111443-3b28b09469fc
+	github.com/ggerganov/whisper.cpp/bindings/go v0.0.0-20230601124500-5b9e59bc07dd
 	github.com/go-audio/wav v1.1.0
 	github.com/go-skynet/bloomz.cpp v0.0.0-20230510223001-e9366e82abdf
 	github.com/go-skynet/go-bert.cpp v0.0.0-20230529074307-771b4a085972
 	github.com/go-skynet/go-ggml-transformers.cpp v0.0.0-20230531065233-17b065584ef8
-	github.com/go-skynet/go-llama.cpp v0.0.0-20230530191504-62b6c079a47d
+	github.com/go-skynet/go-llama.cpp v0.0.0-20230531065249-10caf37d8b73
 	github.com/gofiber/fiber/v2 v2.46.0
 	github.com/google/uuid v1.3.0
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/imdario/mergo v0.3.16
 	github.com/mudler/go-stable-diffusion v0.0.0-20230516152536-c0748eca3642
-	github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230531011104-5f940208e4f5
+	github.com/nomic-ai/gpt4all/gpt4all-bindings/golang v0.0.0-20230603001950-25ee51e2ca3a
 	github.com/onsi/ginkgo/v2 v2.9.7
 	github.com/onsi/gomega v1.27.7
 	github.com/otiai10/openaigo v1.1.0
 	github.com/rs/zerolog v1.29.1
 	github.com/sashabaranov/go-openai v1.9.5
 	github.com/swaggo/swag v1.16.1
-	github.com/urfave/cli/v2 v2.25.3
+	github.com/tmc/langchaingo v0.0.0-20230530193922-fb062652f841
+	github.com/urfave/cli/v2 v2.25.5
 	github.com/valyala/fasthttp v1.47.0
 	gopkg.in/yaml.v2 v2.4.0
 	gopkg.in/yaml.v3 v3.0.1

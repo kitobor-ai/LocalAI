@@ -7,6 +7,7 @@ import (
 
 	rwkv "github.com/donomii/go-rwkv.cpp"
 	whisper "github.com/ggerganov/whisper.cpp/bindings/go/pkg/whisper"
+	"github.com/go-skynet/LocalAI/pkg/langchain"
 	"github.com/go-skynet/LocalAI/pkg/stablediffusion"
 	bloomz "github.com/go-skynet/bloomz.cpp"
 	bert "github.com/go-skynet/go-bert.cpp"
@@ -32,17 +33,17 @@ const (
 	Gpt4AllLlamaBackend    = "gpt4all-llama"
 	Gpt4AllMptBackend      = "gpt4all-mpt"
 	Gpt4AllJBackend        = "gpt4all-j"
+	Gpt4All                = "gpt4all"
 	BertEmbeddingsBackend  = "bert-embeddings"
 	RwkvBackend            = "rwkv"
 	WhisperBackend         = "whisper"
 	StableDiffusionBackend = "stablediffusion"
+	LCHuggingFaceBackend   = "langchain-huggingface"
 )
 
 var backends []string = []string{
 	LlamaBackend,
-	Gpt4AllLlamaBackend,
-	Gpt4AllMptBackend,
-	Gpt4AllJBackend,
+	Gpt4All,
 	RwkvBackend,
 	GPTNeoXBackend,
 	WhisperBackend,
@@ -100,6 +101,10 @@ var whisperModel = func(modelFile string) (interface{}, error) {
 	return whisper.New(modelFile)
 }
 
+var lcHuggingFace = func(repoId string) (interface{}, error) {
+	return langchain.NewHuggingFace(repoId)
+}
+
 func llamaLM(opts ...llama.ModelOption) func(string) (interface{}, error) {
 	return func(s string) (interface{}, error) {
 		return llama.New(s, opts...)
@@ -147,18 +152,16 @@ func (ml *ModelLoader) BackendLoader(backendString string, modelFile string, lla
 		return ml.LoadModel(modelFile, stableDiffusion)
 	case StarcoderBackend:
 		return ml.LoadModel(modelFile, starCoder)
-	case Gpt4AllLlamaBackend:
-		return ml.LoadModel(modelFile, gpt4allLM(gpt4all.SetThreads(int(threads)), gpt4all.SetModelType(gpt4all.LLaMAType)))
-	case Gpt4AllMptBackend:
-		return ml.LoadModel(modelFile, gpt4allLM(gpt4all.SetThreads(int(threads)), gpt4all.SetModelType(gpt4all.MPTType)))
-	case Gpt4AllJBackend:
-		return ml.LoadModel(modelFile, gpt4allLM(gpt4all.SetThreads(int(threads)), gpt4all.SetModelType(gpt4all.GPTJType)))
+	case Gpt4AllLlamaBackend, Gpt4AllMptBackend, Gpt4AllJBackend, Gpt4All:
+		return ml.LoadModel(modelFile, gpt4allLM(gpt4all.SetThreads(int(threads))))
 	case BertEmbeddingsBackend:
 		return ml.LoadModel(modelFile, bertEmbeddings)
 	case RwkvBackend:
 		return ml.LoadModel(modelFile, rwkvLM(filepath.Join(ml.ModelPath, modelFile+tokenizerSuffix), threads))
 	case WhisperBackend:
 		return ml.LoadModel(modelFile, whisperModel)
+	case LCHuggingFaceBackend:
+		return ml.LoadModel(modelFile, lcHuggingFace)
 	default:
 		return nil, fmt.Errorf("backend unsupported: %s", backendString)
 	}
