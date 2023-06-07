@@ -3,19 +3,19 @@ GOTEST=$(GOCMD) test
 GOVET=$(GOCMD) vet
 BINARY_NAME=local-ai
 
-GOLLAMA_VERSION?=3f10005b70c657c317d2cae4c22a9bd295f54a3c
-GPT4ALL_REPO?=https://github.com/nomic-ai/gpt4all
-GPT4ALL_VERSION?=23391d44e0b99406906eabc4865ec12dd3c69bdc
-GOGGMLTRANSFORMERS_VERSION?=17b065584ef8f3280b6286235f0db95eec8a4b1c
-RWKV_REPO?=https://github.com/mudler/go-rwkv.cpp
-RWKV_VERSION?=f25c89f8e55a67d57c01661a16abeed1b1c25016
-WHISPER_CPP_VERSION?=5b9e59bc07dd76320354f2af6be29f16dbcb21e7
+GOLLAMA_VERSION?=37ef81d01ae0848575e416e48b41d112ef0d520e
+GPT4ALL_REPO?=https://github.com/go-skynet/gpt4all
+GPT4ALL_VERSION?=f7498c9
+GOGGMLTRANSFORMERS_VERSION?=bd765bb6f3b38a63f915f3725e488aad492eedd4
+RWKV_REPO?=https://github.com/donomii/go-rwkv.cpp
+RWKV_VERSION?=1e18b2490e7e32f6b00e16f6a9ec0dd3a3d09266
+WHISPER_CPP_VERSION?=57543c169e27312e7546d07ed0d8c6eb806ebc36
 BERT_VERSION?=0548994371f7081e45fcf8d472f3941a12f179aa
 BLOOMZ_VERSION?=1834e77b83faafe912ad4092ccf7f77937349e2f
-BUILD_TYPE?=
+export BUILD_TYPE?=
 CGO_LDFLAGS?=
 CUDA_LIBPATH?=/usr/local/cuda/lib64/
-STABLEDIFFUSION_VERSION?=c0748eca3642d58bcf9521108bcee46959c647dc
+STABLEDIFFUSION_VERSION?=d89260f598afb809279bc72aa0107b4292587632
 GO_TAGS?=
 BUILD_ID?=git
 LD_FLAGS=?=
@@ -39,6 +39,11 @@ endif
 ifeq ($(BUILD_TYPE),cublas)
 	CGO_LDFLAGS+=-lcublas -lcudart -L$(CUDA_LIBPATH)
 	export LLAMA_CUBLAS=1
+endif
+
+ifeq ($(BUILD_TYPE),metal)
+	CGO_LDFLAGS+=-framework Foundation -framework Metal -framework MetalKit -framework MetalPerformanceShaders
+	export LLAMA_METAL=1
 endif
 
 ifeq ($(BUILD_TYPE),clblas)
@@ -66,6 +71,12 @@ gpt4all:
 	@find ./gpt4all -type f -name "*.c" -exec sed -i'' -e 's/ggml_/ggml_gpt4all_/g' {} +
 	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/ggml_/ggml_gpt4all_/g' {} +
 	@find ./gpt4all -type f -name "*.h" -exec sed -i'' -e 's/ggml_/ggml_gpt4all_/g' {} +
+	@find ./gpt4all -type f -name "*.c" -exec sed -i'' -e 's/llama_/llama_gpt4all_/g' {} +
+	@find ./gpt4all -type f -name "*.cpp" -exec sed -i'' -e 's/llama_/llama_gpt4all_/g' {} +
+	@find ./gpt4all -type f -name "*.h" -exec sed -i'' -e 's/llama_/llama_gpt4all_/g' {} +
+	@find ./gpt4all/gpt4all-backend -type f -name "llama_util.h" -execdir mv {} "llama_gpt4all_util.h" \;
+	@find ./gpt4all -type f -name "*.cmake" -exec sed -i'' -e 's/llama_util/llama_gpt4all_util/g' {} +
+	@find ./gpt4all -type f -name "*.txt" -exec sed -i'' -e 's/llama_util/llama_gpt4all_util/g' {} +
 	@find ./gpt4all/gpt4all-bindings/golang -type f -name "*.cpp" -exec sed -i'' -e 's/load_model/load_gpt4all_model/g' {} +
 	@find ./gpt4all/gpt4all-bindings/golang -type f -name "*.go" -exec sed -i'' -e 's/load_model/load_gpt4all_model/g' {} +
 	@find ./gpt4all/gpt4all-bindings/golang -type f -name "*.h" -exec sed -i'' -e 's/load_model/load_gpt4all_model/g' {} +
@@ -232,8 +243,10 @@ test-models/testmodel:
 	cp tests/models_fixtures/* test-models
 
 test: prepare test-models/testmodel
+	cp -r backend-assets api
 	cp tests/models_fixtures/* test-models
-	C_INCLUDE_PATH=${C_INCLUDE_PATH} LIBRARY_PATH=${LIBRARY_PATH} TEST_DIR=$(abspath ./)/test-dir/ FIXTURES=$(abspath ./)/tests/fixtures CONFIG_FILE=$(abspath ./)/test-models/config.yaml MODELS_PATH=$(abspath ./)/test-models $(GOCMD) run github.com/onsi/ginkgo/v2/ginkgo --flake-attempts 5 -v -r ./api ./pkg
+	C_INCLUDE_PATH=${C_INCLUDE_PATH} LIBRARY_PATH=${LIBRARY_PATH} TEST_DIR=$(abspath ./)/test-dir/ FIXTURES=$(abspath ./)/tests/fixtures CONFIG_FILE=$(abspath ./)/test-models/config.yaml MODELS_PATH=$(abspath ./)/test-models $(GOCMD) run github.com/onsi/ginkgo/v2/ginkgo --label-filter="!gpt4all" --flake-attempts 5 -v -r ./api ./pkg
+	C_INCLUDE_PATH=${C_INCLUDE_PATH} LIBRARY_PATH=${LIBRARY_PATH} TEST_DIR=$(abspath ./)/test-dir/ FIXTURES=$(abspath ./)/tests/fixtures CONFIG_FILE=$(abspath ./)/test-models/config.yaml MODELS_PATH=$(abspath ./)/test-models $(GOCMD) run github.com/onsi/ginkgo/v2/ginkgo --label-filter="gpt4all" --flake-attempts 5 -v -r ./api ./pkg
 
 ## Help:
 help: ## Show this help.
